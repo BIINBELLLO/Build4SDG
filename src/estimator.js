@@ -1,19 +1,19 @@
 /* eslint-disable prefer-const */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars */
-let outputData = {
-  data: {
-  },
-  impact: {
-    currentlyInfected: 0,
-    infectionsByRequestedTime: 0
-  },
-  severImpact: {
-    currentlyInfected: 0,
-    infectionsByRequestedTime: 0
-  }
-};
 const covid19ImpactEstimator = (data) => {
+  let outputData = {
+    data: {
+    },
+    impact: {
+      currentlyInfected: 0,
+      infectionsByRequestedTime: 0
+    },
+    severImpact: {
+      currentlyInfected: 0,
+      infectionsByRequestedTime: 0
+    }
+  };
   outputData.data = data;
   outputData.impact.currentlyInfected = data.reportedCases * 10;
   outputData.severImpact.currentlyInfected = data.reportedCases * 50;
