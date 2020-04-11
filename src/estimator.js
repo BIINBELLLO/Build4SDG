@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-restricted-properties */
 /* eslint-disable radix */
 /* eslint-disable prefer-const */
