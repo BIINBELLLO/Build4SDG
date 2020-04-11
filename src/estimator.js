@@ -6,7 +6,7 @@
 /* eslint-disable no-unused-vars */
 
 const getFactor = (time) => {
-  const power = parseInt((time / 3).toFixed());
+  const power = Math.trunc(time / 3);
   const result = Math.pow(2, power);
   return result;
 };
@@ -18,16 +18,32 @@ const covid19ImpactEstimator = (data) => {
       currentlyInfected: 0,
       infectionsByRequestedTime: 0
     },
-    severImpact: {
+    severeImpact: {
       currentlyInfected: 0,
       infectionsByRequestedTime: 0
     }
   };
-  outputData.impact.currentlyInfected = data.reportedCases * 10;
-  outputData.severImpact.currentlyInfected = data.reportedCases * 50;
-  outputData.impact.infectionsByRequestedTime = outputData.impact.currentlyInfected * getFactor(data.timeToElapse);
-  outputData.severImpact.infectionsByRequestedTime = outputData.severImpact.currentlyInfected * getFactor(data.timeToElapse);
-  return outputData;
+  const { reportedCases } = data;
+  const { timeToElapse } = data;
+  const impactCurrentlyInfected = reportedCases * 10;
+  const severeImpactCurrentlyInfected = reportedCases * 50;
+  const impactInfectionsByRequestedTime = impactCurrentlyInfected * getFactor(timeToElapse);
+  const severeImpactInfectionsByRequestedTime = severeImpactCurrentlyInfected * getFactor(timeToElapse);
+  // outputData.impact.currentlyInfected = data.reportedCases * 10;
+  // outputData.severeImpact.currentlyInfected = data.reportedCases * 50;
+  // outputData.impact.infectionsByRequestedTime = outputData.impact.currentlyInfected * getFactor(data.timeToElapse);
+  // outputData.severeImpact.infectionsByRequestedTime = outputData.severeImpact.currentlyInfected * getFactor(data.timeToElapse);
+  return {
+    data,
+    impact: {
+      currentlyInfected: impactCurrentlyInfected,
+      infectionsByRequestedTime: impactInfectionsByRequestedTime
+    },
+    severeImpact: {
+      currentlyInfected: severeImpactCurrentlyInfected,
+      infectionsByRequestedTime: severeImpactInfectionsByRequestedTime
+    }
+  };
 };
 
 export default covid19ImpactEstimator;
