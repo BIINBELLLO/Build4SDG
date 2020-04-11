@@ -14,9 +14,11 @@ let outputData = {
   }
 };
 const covid19ImpactEstimator = (data) => {
+  outputData.data = data;
   outputData.impact.currentlyInfected = data.reportedCases * 10;
   outputData.severImpact.currentlyInfected = data.reportedCases * 50;
   outputData.impact.infectionsByRequestedTime = outputData.impact.currentlyInfected * 512;
   outputData.severImpact.infectionsByRequestedTime = outputData.severImpact.currentlyInfected * 512;
+  return outputData;
 };
 export default covid19ImpactEstimator;
