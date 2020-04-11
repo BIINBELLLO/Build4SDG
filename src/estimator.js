@@ -22,10 +22,12 @@ const covid19ImpactEstimator = (data) => {
       infectionsByRequestedTime: 0
     }
   };
-  outputData.impact.currentlyInfected = data['reportedCases'] * 10;
-  outputData.severImpact.currentlyInfected = data['reportedCases'] * 50;
-  outputData.impact.infectionsByRequestedTime = outputData.impact.currentlyInfected * getFactor(data.timeToElapse);
-  outputData.severImpact.infectionsByRequestedTime = outputData.severImpact.currentlyInfected * getFactor(data.timeToElapse);
+  outputData.impact.currentlyInfected = data.reportedCases * 10;
+  outputData.severImpact.currentlyInfected = data.reportedCases * 50;
+  outputData.impact.infectionsByRequestedTime =
+    outputData.impact.currentlyInfected * getFactor(data.timeToElapse);
+  outputData.severImpact.infectionsByRequestedTime =
+    outputData.severImpact.currentlyInfected * getFactor(data.timeToElapse);
   return outputData;
 };
 
