@@ -20,7 +20,7 @@ const getNormalizedDays = (periodType, timeToElapse) => {
     default:
       return timeToElapse;
   }
-}
+};
 
 const covid19ImpactEstimator = (data) => {
   let outputData = {
