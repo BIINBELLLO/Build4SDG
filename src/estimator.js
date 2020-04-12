@@ -15,7 +15,7 @@ const getNormalizedDays = (periodType, timeToElapse) => {
   switch (periodType) {
     case 'weeks':
       return timeToElapse * 7;
-    case 'month':
+    case 'months':
       return timeToElapse * 30;
     default:
       return timeToElapse;
