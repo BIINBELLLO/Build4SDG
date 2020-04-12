@@ -11,6 +11,17 @@ const getFactor = (time) => {
   return result;
 };
 
+const getNormalizedDays = (periodType, timeToElapse) => {
+  switch (periodType) {
+    case 'weeks':
+      return timeToElapse * 7;
+    case 'month':
+      return timeToElapse * 30;
+    default:
+      return timeToElapse;
+  }
+}
+
 const covid19ImpactEstimator = (data) => {
   let outputData = {
     data,
@@ -25,10 +36,11 @@ const covid19ImpactEstimator = (data) => {
   };
   const { reportedCases } = data;
   const { timeToElapse } = data;
+  const { periodType } = data;
   const impactCurrentlyInfected = reportedCases * 10;
   const severeImpactCurrentlyInfected = reportedCases * 50;
-  const impactInfectionsByRequestedTime = impactCurrentlyInfected * getFactor(timeToElapse);
-  const severeImpactInfectionsByRequestedTime = severeImpactCurrentlyInfected * getFactor(timeToElapse);
+  const impactInfectionsByRequestedTime = impactCurrentlyInfected * getFactor(getNormalizedDays(periodType, timeToElapse));
+  const severeImpactInfectionsByRequestedTime = severeImpactCurrentlyInfected * getFactor(getNormalizedDays(periodType, timeToElapse));
   // outputData.impact.currentlyInfected = data.reportedCases * 10;
   // outputData.severeImpact.currentlyInfected = data.reportedCases * 50;
   // outputData.impact.infectionsByRequestedTime = outputData.impact.currentlyInfected * getFactor(data.timeToElapse);
