@@ -23,37 +23,31 @@ const getNormalizedDays = (periodType, timeToElapse) => {
 };
 
 const covid19ImpactEstimator = (data) => {
-  let outputData = {
-    data,
-    impact: {
-      currentlyInfected: 0,
-      infectionsByRequestedTime: 0
-    },
-    severeImpact: {
-      currentlyInfected: 0,
-      infectionsByRequestedTime: 0
-    }
-  };
   const { reportedCases } = data;
   const { timeToElapse } = data;
   const { periodType } = data;
+  const { totalHospitalBeds } = data;
   const impactCurrentlyInfected = reportedCases * 10;
   const severeImpactCurrentlyInfected = reportedCases * 50;
   const impactInfectionsByRequestedTime = impactCurrentlyInfected * getFactor(getNormalizedDays(periodType, timeToElapse));
   const severeImpactInfectionsByRequestedTime = severeImpactCurrentlyInfected * getFactor(getNormalizedDays(periodType, timeToElapse));
-  // outputData.impact.currentlyInfected = data.reportedCases * 10;
-  // outputData.severeImpact.currentlyInfected = data.reportedCases * 50;
-  // outputData.impact.infectionsByRequestedTime = outputData.impact.currentlyInfected * getFactor(data.timeToElapse);
-  // outputData.severeImpact.infectionsByRequestedTime = outputData.severeImpact.currentlyInfected * getFactor(data.timeToElapse);
+  const impactSevereCasesByRequestedTime = impactInfectionsByRequestedTime * 0.15;
+  const severeSevereCasesByRequestedTime = severeImpactInfectionsByRequestedTime * 0.15;
+  const impactHospitalBedsByRequestedTime = totalHospitalBeds - impactSevereCasesByRequestedTime;
+  const severeHospitalBedsByRequestedTime = totalHospitalBeds - severeSevereCasesByRequestedTime;
   return {
     data,
     impact: {
       currentlyInfected: impactCurrentlyInfected,
-      infectionsByRequestedTime: impactInfectionsByRequestedTime
+      infectionsByRequestedTime: impactInfectionsByRequestedTime,
+      severeCasesByRequestedTime: impactSevereCasesByRequestedTime,
+      hospitalBedsByRequestedTime: impactHospitalBedsByRequestedTime
     },
     severeImpact: {
       currentlyInfected: severeImpactCurrentlyInfected,
-      infectionsByRequestedTime: severeImpactInfectionsByRequestedTime
+      infectionsByRequestedTime: severeImpactInfectionsByRequestedTime,
+      severeCasesByRequestedTime: severeSevereCasesByRequestedTime,
+      hospitalBedsByRequestedTime: severeHospitalBedsByRequestedTime
     }
   };
 };
