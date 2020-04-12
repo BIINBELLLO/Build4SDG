@@ -1,0 +1,20 @@
+// Default Colors //
+
+$purple-color: #6A79DD;
+$blue-color: #007BFF;
+$green-color: #60CBBE;
+$orange-color: #FFB031;
+$light-brown-color: #E3C881;
+$red-color: #FF5252;
+
+.text-primary {
+    color: $purple-color !important;
+}
+
+.bg-light-primary {
+    background-color: $bg-light-primary;
+}
+
+.text-default {
+    color: $default-text;
+}
